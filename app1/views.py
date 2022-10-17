@@ -28,7 +28,6 @@ class CustomUserModelViewSet(viewsets.ModelViewSet):
   serializer_class = CustomUserSerializer
 
 
-# Commit 2
 @api_view(['GET', 'POST'])
 def loging(request):
   if request.method == "POST":
@@ -36,9 +35,9 @@ def loging(request):
       user = CustomUser.objects.get(phone=request.data['phone'])
       login(request, user)
       data = {
-        "phone": user.phone,
-      }
+            "phone": user.phone,
+             }
     except Exception:
-      data = {"phone": ['Not Found']}
+      data={"phone": ['Not Found']}
     return Response(data)
-  return Response(request.data)
+  return Response({"phone": ""})
