@@ -19,15 +19,15 @@ class CustomUser(AbstractUser):
                           on_delete=models.CASCADE,
                           blank=True,
                           null=True)
-  is_active = models.BooleanField(
-        default=True,
-    )
+  is_active = models.BooleanField(default=True, )
+
   def save(self, *args, **kwargs):
     if not self.username:
-      self.username=self.phone
+      self.username = self.phone
     if self.is_superuser:
-      self.is_active=True
+      self.is_active = True
     super(CustomUser, self).save(*args, **kwargs)
+
 
 class Organization(models.Model):
   name = models.CharField(max_length=200)
@@ -45,10 +45,10 @@ class Organization(models.Model):
 
 class Product(models.Model):
   name = models.CharField(max_length=200)
-  image = models.FileField(upload_to='uploads/')
+  image = models.FileField(upload_to='media/uploads/')
   organization = models.ManyToManyField(Organization)
   test_for = models.TextField(default="")
-  sku = models.CharField(max_length=230)
+  sku = models.CharField(max_length=230, unique=True)
 
 
 class Report(models.Model):
