@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import OrganizationViewSet, CustomUserModelViewSet, loging, product, ProductViewSet
+from .views import OrganizationViewSet, CustomUserModelViewSet, loging, ProductViewSet
 from django.views.decorators.csrf import csrf_exempt
 
 router = routers.DefaultRouter()
@@ -11,5 +11,4 @@ router.register(r'product', ProductViewSet, basename='product')
 urlpatterns = [
   path('', include(router.urls)),
   path("login/", loging),
-  # path("product/", product),
 ]

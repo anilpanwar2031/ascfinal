@@ -18,8 +18,9 @@ def index(request):
   return HttpResponse("Hey")
 
 
-class OrganizationViewSet(viewsets.ViewSet):
+class OrganizationViewSet(viewsets.ModelViewSet):
   queryset = Organization.objects.all()
+  serializer_class = OrganizationSerializer
 
   def list(self, request):
     queryset = Organization.objects.all()
@@ -38,6 +39,7 @@ class CustomUserModelViewSet(viewsets.ModelViewSet):
 
   def create(self, request):
     serializer = CustomUserSerializer(data=request.data)
+    print(serializer.is_valid())
     if serializer.is_valid():
       serializer.save()
       data = {
@@ -71,8 +73,6 @@ class CustomUserModelViewSet(viewsets.ModelViewSet):
         "message": ["Mobile number already exists"],
       }
       return Response(data)
-
-
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -117,28 +117,35 @@ class ProductViewSet(viewsets.ModelViewSet):
       return Response(data)
 
 
-
-
-
 @api_view(['GET', 'POST'])
 def loging(request):
+  print(1)
   if request.method == "POST":
+    print(2)
     try:
       user = CustomUser.objects.get(phone=request.data['phone'])
-      login(request, user)
-
-      data = {
-        "status": 1,
-        "data": {
-          "id": user.id,
-          "firstname": user.first_name,
-          "lastname": user.last_name,
-          "email": user.email,
-          "phone": user.phone,
-          "org": user.org.id
-        },
-        "message": [],
-      }
+      print(3)
+      if user.is_active:
+        login(request, user)
+        data = {
+          "status": 1,
+          "data": {
+            "id": user.id,
+            "firstname": user.first_name,
+            "lastname": user.last_name,
+            "email": user.email,
+            "phone": user.phone,
+            "org": user.org.id
+          },
+          "message": [],
+        }
+      else:
+        data = {
+          "status": 0,
+          "data": None,
+          "message": ["You are not a active user"],
+        }
+      return Response(data)
     except Exception:
       data = {
         "status": 0,
@@ -146,57 +153,6 @@ def loging(request):
         "message": ["Invalid details entered"],
       }
     return Response(data)
-  data = {
-    "status": 0,
-    "data": None,
-    "message": ["Invalid details entered"],
-  }
-  return Response(data)
-
-
-# Product
-@api_view(['GET', 'POST'])
-def product(request):
-  if request.method == "POST":
-
-    print("/n")
-    print("/n")
-    print("/n")
-
-    print("In the POST")
-    try:
-      prod = Product.objects.get(sku=request.data['sku'])
-
-      print("/n")
-      print("/n")
-      print("/n")
-      print("Prod", prod)
-      print("In the Try")
-
-      data = {
-        "status": 1,
-        "data": {
-          "id": prod.id,
-          "name": prod.name,
-          # "organization": prod.organization,
-          "test_for": prod.test_for,
-          "sku": prod.sku,
-        },
-        "message": [],
-      }
-      return Response(data)
-    except Exception:
-      print("/n")
-      print("/n")
-      print("/n")
-      print("In the Exception")
-      data = {
-        "status": 0,
-        "data": None,
-        "message": ["Invalid details entered"],
-      }
-      return Response(data)
-
   data = {
     "status": 0,
     "data": None,

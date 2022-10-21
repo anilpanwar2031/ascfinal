@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
                           on_delete=models.CASCADE,
                           blank=True,
                           null=True)
-  is_active = models.BooleanField(default=True, )
+  is_active = models.BooleanField(default=False)
 
   def save(self, *args, **kwargs):
     if not self.username:
@@ -45,7 +45,7 @@ class Organization(models.Model):
 
 class Product(models.Model):
   name = models.CharField(max_length=200)
-  image = models.FileField(upload_to='media/uploads/')
+  image = models.FileField(upload_to='media/uploads/', null=True)
   organization = models.ManyToManyField(Organization)
   test_for = models.TextField(default="")
   sku = models.CharField(max_length=230, unique=True)
