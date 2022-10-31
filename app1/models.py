@@ -42,6 +42,8 @@ class Organization(models.Model):
   zip = models.CharField(max_length=200)
   note = models.TextField(default="")
 
+  
+
 
 class Product(models.Model):
   name = models.CharField(max_length=200)

@@ -135,7 +135,10 @@ def loging(request):
             "lastname": user.last_name,
             "email": user.email,
             "phone": user.phone,
+            "type": user.type,
+            "is_active": user.is_active,
             "org": user.org.id
+            
           },
           "message": [],
         }
