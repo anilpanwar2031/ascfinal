@@ -14,7 +14,12 @@ class CustomUser(AbstractUser):
   phone = models.CharField(validators=[phone_regex],
                            unique=True,
                            max_length=15)
-  type = models.CharField(max_length=20, blank=True, null=True)
+  options=(
+    ("OA", "Organization Admin"),
+    ("SA", "Super Admin"),
+    ("NU", "Normal User"),
+  )
+  type = models.CharField(choices=options, max_length=20, default="NU")
   org = models.ForeignKey('Organization',
                           on_delete=models.CASCADE,
                           blank=True,

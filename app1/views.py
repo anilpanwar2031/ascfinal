@@ -34,7 +34,7 @@ class OrganizationViewSet(viewsets.ModelViewSet):
 
 
 class CustomUserModelViewSet(viewsets.ModelViewSet):
-  queryset = CustomUser.objects.all()
+  queryset = CustomUser.objects.filter(type="NU")
   serializer_class = CustomUserSerializer
 
   def create(self, request):
