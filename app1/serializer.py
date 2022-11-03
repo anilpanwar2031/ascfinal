@@ -13,12 +13,12 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-  organization_name = serializers.RelatedField(source='organization', read_only=True)
+  # organization_name = serializers.RelatedField(source='organization', read_only=True)
   class Meta:
     model = CustomUser
     fields = [
       "id", "first_name", "last_name", "email", "phone", "type", "is_active",
-      "org", "organization_name"
+      "org"
     ]
 
 
