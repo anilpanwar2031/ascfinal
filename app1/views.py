@@ -138,7 +138,6 @@ def loging(request):
             "type": user.type,
             "is_active": user.is_active,
             "org": user.org.id
-            
           },
           "message": [],
         }
@@ -162,3 +161,32 @@ def loging(request):
     "message": ["Invalid details entered"],
   }
   return Response(data)
+
+
+class SuperUserModelViewSet(viewsets.ModelViewSet):
+  queryset = CustomUser.objects.filter(type="SA")
+  serializer_class = CustomUserSerializer
+
+  def list(self, request):
+    queryset = CustomUser.objects.filter(type="SA")
+    serializer = CustomUserSerializer(queryset, many=True)
+    data = {
+      "status": 1,
+      "data": serializer.data,
+      "message": [],
+    }
+    return Response(data)
+
+
+class OrgUserModelViewSet(viewsets.ModelViewSet):
+  serializer_class = CustomUserSerializer
+
+  def list(self, request):
+    queryset = CustomUser.objects.filter(type="OA")
+    serializer = CustomUserSerializer(queryset, many=True)
+    data = {
+      "status": 1,
+      "data": serializer.data,
+      "message": [],
+    }
+    return Response(data)
