@@ -47,6 +47,9 @@ class Organization(models.Model):
   zip = models.CharField(max_length=200)
   note = models.TextField(default="")
 
+  def __str__(self):
+    return self.name
+
   
 
 
