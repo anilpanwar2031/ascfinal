@@ -66,8 +66,8 @@ class Product(models.Model):
   Desc_1_Language = models.CharField(max_length=255, blank=True, null=True)
   Product_Industry = models.CharField(max_length=255, blank=True, null=True)
   Packaging_Level = models.CharField(max_length=255, blank=True, null=True)
-  Is_Variable = models.CharField(max_length=255, blank=True, null=True)
-  Is_Purchasable = models.CharField(max_length=255, blank=True, null=True)
+  Is_Variable = models.BooleanField(blank=True)
+  Is_Purchasable = models.BooleanField(blank=True)
   Status_Label = models.CharField(max_length=255, blank=True, null=True)
   Height = models.CharField(max_length=255, blank=True, null=True)
   Width = models.CharField(max_length=255, blank=True, null=True)
@@ -122,8 +122,3 @@ class Report(models.Model):
   test_result = models.CharField(max_length=230)
   product = models.ForeignKey(Product, on_delete=models.CASCADE)
   datetime = models.DateTimeField()
-
-
-class test(models.Model):
-  name = models.CharField(max_length=200)
-  surname = models.CharField(max_length=200)
