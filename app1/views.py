@@ -179,6 +179,7 @@ class SuperUserModelViewSet(viewsets.ModelViewSet):
 
 
 class OrgUserModelViewSet(viewsets.ModelViewSet):
+  queryset = CustomUser.objects.filter(type="OA")
   serializer_class = CustomUserSerializer
 
   def list(self, request):
@@ -190,3 +191,9 @@ class OrgUserModelViewSet(viewsets.ModelViewSet):
       "message": [],
     }
     return Response(data)
+
+
+def product_upload(request):
+  print("In the Product Upload")
+  return HttpResponse("In the product uplaod function")
+ 

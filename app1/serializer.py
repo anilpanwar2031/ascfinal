@@ -5,11 +5,21 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
-  id = serializers.ReadOnlyField()
-
+  # id = serializers.ReadOnlyField()
+  owner_fname = serializers.ReadOnlyField(source='owner.first_name')
+  owner_lname = serializers.ReadOnlyField(source='owner.last_name')
   class Meta:
     model = Organization
-    fields = "__all__"
+    read_only_fields = ('id', 'owner_fname', 'owner_lname')
+    fields = ["id", "name", "primary_name", "primary_title", "phone", "email", "address",
+            "city",
+            "state",
+            "zip",
+            "note",
+            "owner",
+            "owner_fname",
+            "owner_lname"  
+    ]
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
