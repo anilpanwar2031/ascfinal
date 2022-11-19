@@ -119,42 +119,59 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET', 'POST'])
 def loging(request):
-  print(1)
   if request.method == "POST":
-    print(2)
     try:
       user = CustomUser.objects.get(phone=request.data['phone'])
-      print(3)
       if user.is_active:
         login(request, user)
-        data = {
-          "status": 1,
-          "data": {
-            "id": user.id,
-            "firstname": user.first_name,
-            "lastname": user.last_name,
-            "email": user.email,
-            "phone": user.phone,
-            "type": user.type,
-            "is_active": user.is_active,
-            "org": user.org.id
-          },
-          "message": [],
-        }
+        if user.type == "SA":
+          data = {
+            "status": 1,
+            "data": {
+              "id": user.id,
+              "firstname": user.first_name,
+              "lastname": user.last_name,
+              "email": user.email,
+              "phone": user.phone,
+              "type": user.type,
+              "org": user.org.id if user.org else None,
+              "org_name": user.org.name if user.org else None,
+              "is_active": user.is_active,
+            },
+            "message": [""],
+          }
+        elif user.type == "OA" and user.org:
+          data = {
+            "status": 1,
+            "data": {
+              "id": user.id,
+              "firstname": user.first_name,
+              "lastname": user.last_name,
+              "email": user.email,
+              "phone": user.phone,
+              "type": user.type,
+              "org": user.org.id,
+              "org_name": user.org.name if user.org else None,
+              "is_active": user.is_active,
+            },
+            "message": [""],
+          }
+        return Response(data)
+
       else:
         data = {
           "status": 0,
           "data": None,
           "message": ["You are not a active user"],
         }
-      return Response(data)
+        return Response(data)
     except Exception:
       data = {
         "status": 0,
         "data": None,
         "message": ["Invalid details entered"],
       }
-    return Response(data)
+      return Response(data)
   data = {
     "status": 0,
     "data": None,
