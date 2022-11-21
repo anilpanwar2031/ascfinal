@@ -38,7 +38,7 @@ python-versions = ">=2.7"
 
 [[package]]
 name = "django"
-version = "3.2.12"
+version = "4.1.3"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -53,6 +53,17 @@ tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 [package.extras]
 argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
+
+[[package]]
+name = "django-filter"
+version = "22.1"
+description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Django = ">=3.2"
 
 [[package]]
 name = "django-import-export"
@@ -199,7 +210,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "5906e30ebe034018fe526b615260e4fbb055d466fc77adf1c678de44c643d70b"
+content-hash = "f35f0d039ef7f7447cb50264d76b73f76c38d57bb5dc31b3e469925303d8edda"
 
 [metadata.files]
 asgiref = []
@@ -207,6 +218,7 @@ asgiref = []
 defusedxml = []
 diff-match-patch = []
 django = []
+django-filter = []
 django-import-export = []
 djangorestframework = []
 et-xmlfile = []

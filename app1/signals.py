@@ -6,6 +6,5 @@ from app1.models import Organization, CustomUser
 @receiver(post_save, sender=Organization)
 def update_user(sender, instance, created, **kwargs):
   owner_user = CustomUser.objects.get(id=instance.owner.id)
-  if not owner_user.org:
-    owner_user.org = Organization.objects.get(id=instance.id)
-    owner_user.save()
+  owner_user.org = Organization.objects.get(id=instance.id)
+  owner_user.save()

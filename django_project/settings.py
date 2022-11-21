@@ -41,12 +41,13 @@ INSTALLED_APPS = [
   'app1',
   'import_export',
   'corsheaders',
+  'django_filters',
 ]
 
 MIDDLEWARE = [
   'django.middleware.security.SecurityMiddleware',
   'django.contrib.sessions.middleware.SessionMiddleware',
-  'corsheaders.middleware.CorsMiddleware',   
+  'corsheaders.middleware.CorsMiddleware',
   'django.middleware.common.CommonMiddleware',
   'django.middleware.csrf.CsrfViewMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -55,7 +56,6 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-
 
 ROOT_URLCONF = 'django_project.urls'
 AUTH_USER_MODEL = 'app1.CustomUser'
@@ -69,7 +69,9 @@ REST_FRAMEWORK = {
   'DEFAULT_AUTHENTICATION_CLASSES': [
     # 'rest_framework.authentication.SessionAuthentication',
     'rest_framework.authentication.BasicAuthentication',
-  ]
+  ],
+  'DEFAULT_FILTER_BACKENDS':
+  ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 TEMPLATES = [

@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django_filters import rest_framework
 
 
 # Create your views here.
@@ -18,9 +19,18 @@ def index(request):
   return HttpResponse("Hey")
 
 
+class RequestUserViewSet(viewsets.ModelViewSet):
+  queryset = CustomUser.objects.all()
+  serializer_class = CustomUserSerializer
+  filter_backends = (rest_framework.DjangoFilterBackend, )
+  filterset_fields = '__all__'
+
+
 class OrganizationViewSet(viewsets.ModelViewSet):
   queryset = Organization.objects.all()
   serializer_class = OrganizationSerializer
+  filter_backends = (rest_framework.DjangoFilterBackend, )
+  filterset_fields = '__all__'
 
   def list(self, request):
     queryset = Organization.objects.all()
