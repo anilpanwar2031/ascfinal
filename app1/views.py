@@ -140,7 +140,14 @@ def loging(request):
             },
             "message": [""],
           }
-        elif user.type == "OA" and user.org:
+        elif user.type == "OA":
+          if not user.org:
+            data = {
+              "status": 0,
+              "data": None,
+              "message": ["Organization not assigned"],
+            }
+            return Response(data)
           data = {
             "status": 1,
             "data": {
@@ -151,7 +158,7 @@ def loging(request):
               "phone": user.phone,
               "type": user.type,
               "org": user.org.id,
-              "org_name": user.org.name if user.org else None,
+              "org_name": user.org.name,
               "is_active": user.is_active,
             },
             "message": [""],
@@ -213,4 +220,3 @@ class OrgUserModelViewSet(viewsets.ModelViewSet):
 def product_upload(request):
   print("In the Product Upload")
   return HttpResponse("In the product uplaod function")
- 
