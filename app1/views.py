@@ -20,20 +20,23 @@ def index(request):
 
 
 class RequestUserViewSet(viewsets.ModelViewSet):
-  queryset = CustomUser.objects.all()
+  queryset = CustomUser.objects.all().order_by('id')
   serializer_class = CustomUserSerializer
   filter_backends = (rest_framework.DjangoFilterBackend, )
   filterset_fields = '__all__'
 
+  class Meta:
+    ordering = ['-id']
+
 
 class OrganizationViewSet(viewsets.ModelViewSet):
-  queryset = Organization.objects.all()
+  queryset = Organization.objects.all().order_by('id')
   serializer_class = OrganizationSerializer
   filter_backends = (rest_framework.DjangoFilterBackend, )
   filterset_fields = '__all__'
 
   def list(self, request):
-    queryset = Organization.objects.all()
+    queryset = Organization.objects.all().order_by('id')
     serializer = OrganizationSerializer(queryset, many=True)
     data = {
       "status": 1,
@@ -44,7 +47,7 @@ class OrganizationViewSet(viewsets.ModelViewSet):
 
 
 class CustomUserModelViewSet(viewsets.ModelViewSet):
-  queryset = CustomUser.objects.filter(type="NU")
+  queryset = CustomUser.objects.filter(type="NU").order_by('id')
   serializer_class = CustomUserSerializer
 
   def create(self, request):
@@ -86,7 +89,7 @@ class CustomUserModelViewSet(viewsets.ModelViewSet):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-  queryset = Product.objects.all()
+  queryset = Product.objects.all().order_by('id')
   serializer_class = ProductSerializer
   lookup_field = 'sku'
 
@@ -198,11 +201,11 @@ def loging(request):
 
 
 class SuperUserModelViewSet(viewsets.ModelViewSet):
-  queryset = CustomUser.objects.filter(type="SA")
+  queryset = CustomUser.objects.filter(type="SA").order_by('id')
   serializer_class = CustomUserSerializer
 
   def list(self, request):
-    queryset = CustomUser.objects.filter(type="SA")
+    queryset = CustomUser.objects.filter(type="SA").order_by('id')
     serializer = CustomUserSerializer(queryset, many=True)
     data = {
       "status": 1,
@@ -213,11 +216,11 @@ class SuperUserModelViewSet(viewsets.ModelViewSet):
 
 
 class OrgUserModelViewSet(viewsets.ModelViewSet):
-  queryset = CustomUser.objects.filter(type="OA")
+  queryset = CustomUser.objects.filter(type="OA").order_by('id')
   serializer_class = CustomUserSerializer
 
   def list(self, request):
-    queryset = CustomUser.objects.filter(type="OA")
+    queryset = CustomUser.objects.filter(type="OA").order_by('id')
     serializer = CustomUserSerializer(queryset, many=True)
     data = {
       "status": 1,

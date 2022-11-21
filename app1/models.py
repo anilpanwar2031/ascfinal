@@ -43,7 +43,7 @@ class Organization(models.Model):
   primary_title = models.CharField(max_length=200)
   phone = models.CharField(validators=[phone_regex], max_length=15)
   email = models.EmailField(blank=True, unique=True)
-  owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+  owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
   address = models.TextField(default="")
   city = models.CharField(max_length=200)
   state = models.CharField(max_length=200)
@@ -66,8 +66,8 @@ class Product(models.Model):
   Desc_1_Language = models.CharField(max_length=255, blank=True, null=True)
   Product_Industry = models.CharField(max_length=255, blank=True, null=True)
   Packaging_Level = models.CharField(max_length=255, blank=True, null=True)
-  Is_Variable = models.BooleanField(blank=True)
-  Is_Purchasable = models.BooleanField(blank=True)
+  Is_Variable = models.BooleanField(null=True, blank=True)
+  Is_Purchasable = models.BooleanField(null=True, blank=True)
   Status_Label = models.CharField(max_length=255, blank=True, null=True)
   Height = models.CharField(max_length=255, blank=True, null=True)
   Width = models.CharField(max_length=255, blank=True, null=True)
@@ -107,7 +107,7 @@ class Product(models.Model):
                                           null=True)
   Target_Markets = models.CharField(max_length=255, blank=True, null=True)
   Last_Modified_Date = models.DateField(blank=True, null=True)
-  organization = models.ManyToManyField(Organization, null=True)
+  organization = models.ManyToManyField(Organization)
   test_for = models.TextField(null=True, blank=True)
 
 
