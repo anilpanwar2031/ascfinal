@@ -103,6 +103,8 @@ class ProductViewSet(viewsets.ModelViewSet):
   queryset = Product.objects.all().order_by('id')
   serializer_class = ProductSerializer
   lookup_field = 'sku'
+  filter_backends = (rest_framework.DjangoFilterBackend, )
+  filterset_fields = ['SKU']
 
   def create(self, request):
     serializer = ProductSerializer(data=request.data)
