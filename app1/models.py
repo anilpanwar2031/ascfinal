@@ -48,7 +48,7 @@ class Organization(models.Model):
   city = models.CharField(max_length=200)
   state = models.CharField(max_length=200)
   zip = models.CharField(max_length=200)
-  note = models.TextField(default="")
+  note = models.TextField(blank=True, null=True)
 
   def __str__(self):
     return self.name

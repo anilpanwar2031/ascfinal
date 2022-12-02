@@ -176,6 +176,30 @@ def loging(request):
             },
             "message": [""],
           }
+
+        elif user.type == "NU":
+          if not user.org:
+            data = {
+              "status": 0,
+              "data": None,
+              "message": ["Organization not assigned"],
+            }
+            return Response(data)
+          data = {
+            "status": 1,
+            "data": {
+              "id": user.id,
+              "firstname": user.first_name,
+              "lastname": user.last_name,
+              "email": user.email,
+              "phone": user.phone,
+              "type": user.type,
+              "org": user.org.id,
+              "org_name": user.org.name,
+              "is_active": user.is_active,
+            },
+            "message": [""],
+          }
         return Response(data)
 
       else:
