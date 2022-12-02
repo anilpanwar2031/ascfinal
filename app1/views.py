@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets
-from .models import Organization, CustomUser, Product
-from .serializer import OrganizationSerializer, CustomUserSerializer, ProductSerializer
+from .models import Organization, CustomUser, Product, TestSubmission
+from .serializer import OrganizationSerializer, CustomUserSerializer, ProductSerializer, TestSubmissionSerializer
 import io
 from django.contrib.auth import login
 from rest_framework.renderers import JSONRenderer
@@ -17,6 +17,17 @@ from django_filters import rest_framework
 # Create your views here.
 def index(request):
   return HttpResponse("Hey")
+
+
+class TestSubmissionViewSet(viewsets.ModelViewSet):
+  queryset = TestSubmission.objects.all().order_by('id')
+  serializer_class = TestSubmissionSerializer
+
+  # filter_backends = (rest_framework.DjangoFilterBackend, )
+  # filterset_fields = '__all__'
+
+  class Meta:
+    ordering = ['-id']
 
 
 class RequestUserViewSet(viewsets.ModelViewSet):

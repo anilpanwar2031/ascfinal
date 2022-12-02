@@ -122,3 +122,25 @@ class Report(models.Model):
   test_result = models.CharField(max_length=230)
   product = models.ForeignKey(Product, on_delete=models.CASCADE)
   datetime = models.DateTimeField()
+
+
+class TestSubmission(models.Model):
+  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+  employer = models.CharField(max_length=230)
+  picture_id_verified = models.CharField(max_length=230)
+  test_reason = models.CharField(max_length=230)
+  first_name = models.CharField(max_length=230)
+  last_name = models.CharField(max_length=230)
+  license_no = models.CharField(max_length=230)
+  email = models.EmailField(max_length=230)
+  phone = phone = models.CharField(validators=[phone_regex],
+                                   unique=True,
+                                   max_length=15)
+  product_sku = models.CharField(max_length=230)
+  product_name = models.CharField(max_length=230)
+  marijuana = models.CharField(max_length=230)
+  cocaine = models.CharField(max_length=230)
+  image1 = models.FileField(upload_to='media/uploads/', null=True)
+  image2 = models.FileField(upload_to='media/uploads/', null=True)
+  specimen = models.CharField(max_length=230)
+  signature = models.FileField(upload_to='media/uploads/', null=True)
